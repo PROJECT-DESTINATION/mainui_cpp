@@ -203,7 +203,7 @@ void CMenuPicButton::Draw( )
 #endif
 
 	int a = (512 - (uiStatic.realTime - m_iLastFocusTime)) >> 1;
-
+	/*
 	if( hPic && !uiStatic.renderPicbuttonText )
 	{
 		int r, g, b;
@@ -323,7 +323,24 @@ void CMenuPicButton::Draw( )
 				InterpColor( colorBase, colorFocus, pulsar ), m_scChSize, eTextAlignment, textflags );
 		}
 	}
+	*/
+	if (iFlags & QMF_GRAYED)
+	{
+		UI_DrawString(font, m_scPos, m_scSize, szName, uiColorDkGrey, m_scChSize, eTextAlignment, ETF_NOSIZELIMIT | ETF_FORCECOL);
+	}
+	else if (this != m_pParent->ItemAtCursor())
+	{
+		UI_DrawString(uiStatic.hSmallFont, m_scPos, m_scSize, szName, colorBase, m_scChSize, eTextAlignment, ETF_NOSIZELIMIT | ETF_FORCECOL);
+	}
+	else if (eFocusAnimation == QM_HIGHLIGHTIFFOCUS || eFocusAnimation == QM_PULSEIFFOCUS)
+	{
+		UI_DrawString(uiStatic.hSmallFont, m_scPos, m_scSize, szName, colorFocus, m_scChSize, eTextAlignment, ETF_NOSIZELIMIT | ETF_FORCECOL);
+	}
 
+	if (enable_border)
+	{
+		UI_DrawRectangleExt(m_scPos, m_scSize, border,1);
+	}
 	iOldState = state;
 }
 

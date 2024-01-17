@@ -135,8 +135,8 @@ private:
 	CMenuPicButton	quit;
 
 	// buttons on top right. Maybe should be drawn if fullscreen == 1?
-	CMenuBitmap	minimizeBtn;
-	CMenuBitmap	quitButton;
+	//CMenuBitmap	minimizeBtn;
+	//CMenuBitmap	quitButton;
 
 	// quit dialog
 	CMenuYesNoMessageBox dialog;
@@ -512,7 +512,7 @@ void CMenuMain::_Init( void )
 		UI_SetActiveMenu( FALSE );
 		EngFuncs::KEY_SetDest( KEY_CONSOLE );
 	});
-
+	
 	resumeGame.SetNameAndStatus( L( "GameUI_GameMenu_ResumeGame" ), L( "StringsList_188" ) );
 	resumeGame.SetPicture( PC_RESUME_GAME );
 	resumeGame.iFlags |= QMF_NOTIFY;
@@ -561,15 +561,15 @@ void CMenuMain::_Init( void )
 	quit.iFlags |= QMF_NOTIFY;
 	quit.onReleased = MenuCb( &CMenuMain::QuitDialog );
 
-	quitButton.SetPicture( ART_CLOSEBTN_N, ART_CLOSEBTN_F, ART_CLOSEBTN_D );
-	quitButton.iFlags = QMF_MOUSEONLY;
-	quitButton.eFocusAnimation = QM_HIGHLIGHTIFFOCUS;
-	quitButton.onReleased = MenuCb( &CMenuMain::QuitDialog );
+	//quitButton.SetPicture( ART_CLOSEBTN_N, ART_CLOSEBTN_F, ART_CLOSEBTN_D );
+	//quitButton.iFlags = QMF_MOUSEONLY;
+	//quitButton.eFocusAnimation = QM_HIGHLIGHTIFFOCUS;
+	//quitButton.onReleased = MenuCb( &CMenuMain::QuitDialog );
 
-	minimizeBtn.SetPicture( ART_MINIMIZE_N, ART_MINIMIZE_F, ART_MINIMIZE_D );
-	minimizeBtn.iFlags = QMF_MOUSEONLY;
-	minimizeBtn.eFocusAnimation = QM_HIGHLIGHTIFFOCUS;
-	minimizeBtn.onReleased.SetCommand( FALSE, "minimize\n" );
+	//minimizeBtn.SetPicture( ART_MINIMIZE_N, ART_MINIMIZE_F, ART_MINIMIZE_D );
+	//minimizeBtn.iFlags = QMF_MOUSEONLY;
+	//minimizeBtn.eFocusAnimation = QM_HIGHLIGHTIFFOCUS;
+	//minimizeBtn.onReleased.SetCommand( FALSE, "minimize\n" );
 
 	if ( gMenu.m_gameinfo.gamemode == GAME_MULTIPLAYER_ONLY || gMenu.m_gameinfo.startmap[0] == 0 )
 		newGame.SetGrayed( true );
@@ -620,8 +620,8 @@ void CMenuMain::_Init( void )
 
 	AddItem( previews );
 	AddItem( quit );
-	AddItem( minimizeBtn );
-	AddItem( quitButton );
+	//AddItem( minimizeBtn );
+	//AddItem( quitButton );
 }
 
 /*
@@ -632,12 +632,11 @@ UI_Main_Init
 void CMenuMain::VidInit( bool connected )
 {
 	// statically positioned items
-	minimizeBtn.SetRect( uiStatic.width - 72, 13, 32, 32 );
-	quitButton.SetRect( uiStatic.width - 36, 13, 32, 32 );
-	disconnect.SetCoord( 72, 180 );
-	resumeGame.SetCoord( 72, 230 );
-	newGame.SetCoord( 72, 280 );
-	hazardCourse.SetCoord( 72, 330 );
+	
+	//disconnect.SetCoord( 72, 180 );
+	//resumeGame.SetCoord( 72, 230 );
+	//newGame.SetCoord( 72, 280 );
+	//hazardCourse.SetCoord( 72, 330 );
 
 	bool isSingle = gpGlobals->maxClients < 2;
 
@@ -675,34 +674,57 @@ void CMenuMain::VidInit( bool connected )
 		console.pos.y = 230;
 	}
 
+	int pos = (ScreenHeight / uiStatic.scaleY)/2;
+
+	for (int i = 0; i < m_pItems.Count(); i++)
+	{
+		if (m_pItems[i]->IsVisible())
+		{
+			pos -= 20; // count the items
+		}
+	}
+	for (int i = 0; i < m_pItems.Count(); i++)
+	{
+		if (m_pItems[i]->IsVisible())
+		{
+			m_pItems[i]->SetCoord(72, pos);
+			pos += 40;
+		}
+	}
+	
+
+	//minimizeBtn.SetRect(uiStatic.width - 72, 13, 32, 32);
+	//quitButton.SetRect(uiStatic.width - 36, 13, 32, 32);
+	/*
 	console.pos.x = 72;
 	console.CalcPosition();
 
 	int saveRestorePos = 330;
-	if (bTrainMap) saveRestorePos += 50; 
+	if (bTrainMap) saveRestorePos += 40; 
 	saveRestore.SetCoord( 72, saveRestorePos );
 
 	int configurationPos = 380;
-	if (bTrainMap) configurationPos += 50; 
+	if (bTrainMap) configurationPos += 40; 
 	configuration.SetCoord( 72, configurationPos );
 
 	int multiPlayerPos = 430;
-	if (bTrainMap) multiPlayerPos += 50; 
+	if (bTrainMap) multiPlayerPos += 40; 
 	multiPlayer.SetCoord( 72, multiPlayerPos );
 	
 	int customGamePos = 480;
-	if (bTrainMap) customGamePos += 50; 
+	if (bTrainMap) customGamePos += 40; 
 	customGame.SetCoord( 72, customGamePos );
 
 	int previewsPos = 480;
-	if (bCustomGame) previewsPos += 50;
-	if (bTrainMap) previewsPos += 50;
+	if (bCustomGame) previewsPos += 40;
+	if (bTrainMap) previewsPos += 40;
 	previews.SetCoord( 72, previewsPos );
 
 	int quitPos = 530;
-	if (bCustomGame) quitPos += 50;
-	if (bTrainMap) quitPos += 50;
+	if (bCustomGame) quitPos += 40;
+	if (bTrainMap) quitPos += 40;
 	quit.SetCoord( 72, quitPos);
+	*/
 }
 
 void CMenuMain::_VidInit()

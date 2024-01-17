@@ -73,6 +73,7 @@ CMenuYesNoMessageBox::Init
 */
 void CMenuYesNoMessageBox::_Init( void )
 {
+	SetRect(DLG_X + 192, 256, 480, 256);
 	if( !m_bSetYes )
 		SetPositiveButton( L( "GameUI_OK" ), PC_OK );
 
@@ -103,13 +104,13 @@ CMenuYesNoMessageBox::VidInit
 */
 void CMenuYesNoMessageBox::_VidInit( void )
 {
-	SetRect( DLG_X + 192, 256, 640, 256 );
+	SetRect( DLG_X + 192, 256, 480, 256 );
 	pos.x += uiStatic.xOffset;
 	pos.y += uiStatic.yOffset;
 	CalcPosition();
 	CalcSizes();
 
-	dlgMessage1.SetRect( 0, 24, 640, 256 - 24 );
+	dlgMessage1.SetRect( 0, 24, 480, 256 - 24 );
 	dlgMessage1.SetCharSize( QM_DEFAULTFONT );
 
 }
@@ -161,9 +162,13 @@ CMenuYesNoMessageBox::SetPositiveButton
 void CMenuYesNoMessageBox::SetPositiveButton( const char *msg, EDefaultBtns buttonPic, int extrawidth )
 {
 	m_bSetYes = true;
+	yes.enable_border = true;
+	yes.border = uiPromptTextColor;
 	yes.szName = msg;
 	yes.SetPicture( buttonPic );
-	yes.SetRect(  (m_bIsAlert?298:188) - extrawidth / 2, 204, UI_BUTTONS_WIDTH / 2 + extrawidth, UI_BUTTONS_HEIGHT );
+	yes.eTextAlignment = QM_CENTER;
+	int w = UI_BUTTONS_WIDTH / 2 + extrawidth;
+	yes.SetRect((size.w)/3 - (w) / 2, 204, w, UI_BUTTONS_HEIGHT );
 }
 
 /*
@@ -174,9 +179,13 @@ CMenuYesNoMessageBox::SetNegativeButton
 void CMenuYesNoMessageBox::SetNegativeButton( const char *msg, EDefaultBtns buttonPic, int extrawidth )
 {
 	m_bSetNo = true;
+	no.enable_border = true;
+	no.border = uiPromptTextColor;
 	no.szName = msg;
 	no.SetPicture( buttonPic );
-	no.SetRect( 338 + extrawidth / 2, 204, UI_BUTTONS_WIDTH / 2 + extrawidth, UI_BUTTONS_HEIGHT );
+	no.eTextAlignment = QM_CENTER;
+	int w = UI_BUTTONS_WIDTH / 2 + extrawidth;
+	no.SetRect((size.w / 3) * 2  - (w) / 2, 204, w, UI_BUTTONS_HEIGHT);
 }
 
 /*

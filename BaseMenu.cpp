@@ -1023,18 +1023,19 @@ int UI_VidInit( void )
 	if(!calledOnce) UI_Precache();
 	// don't allow screenwidth is slower than 4:3 screens
 	// it's really not intended to use, just for keeping menu working
-	if (ScreenWidth * 3 < ScreenHeight * 4)
-	{
-		uiStatic.scaleX = uiStatic.scaleY = ScreenWidth / 1024.0f;
-		uiStatic.yOffset = ( ScreenHeight / 2.0f ) / uiStatic.scaleX - 768.0f / 2.0f;
-	}
-	else
-	{
-		// Sizes are based on screen height
-		uiStatic.scaleX = uiStatic.scaleY = ScreenHeight / 768.0f;
-		uiStatic.yOffset = 0;
-	}
-
+	//if (ScreenWidth * 3 < ScreenHeight * 4)
+	//{
+	//	uiStatic.scaleX = uiStatic.scaleY = ScreenWidth / 1024.0f;
+	//	uiStatic.yOffset = ( ScreenHeight / 2.0f ) / uiStatic.scaleX - 768.0f / 2.0f;
+	//}
+	//else
+	//{
+	//	// Sizes are based on screen height
+	//	uiStatic.scaleX = uiStatic.scaleY = ScreenHeight / 768.0f;
+	//	uiStatic.yOffset = 0;
+	//}
+	uiStatic.scaleX = 1;
+	uiStatic.scaleY = 1;
 
 	uiStatic.width = ScreenWidth / uiStatic.scaleX;
 	// move cursor to screen center

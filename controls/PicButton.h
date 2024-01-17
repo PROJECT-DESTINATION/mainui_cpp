@@ -43,6 +43,8 @@ public:
 
 	bool bEnableTransitions;
 	bool bPulse;
+	bool enable_border;
+	CColor border;
 private:
 	bool bRollOver;
 
