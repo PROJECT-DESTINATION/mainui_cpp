@@ -73,6 +73,8 @@ GNU General Public License for more details.
 	#define XASH_PLATFORM PLATFORM_NSWITCH
 #elif XASH_PSVITA
 	#define XASH_PLATFORM PLATFORM_PSVITA
+#elif XASH_PS3
+	#define XASH_PLATFORM PLATFORM_PS3
 #else
 	#error
 #endif

@@ -43,6 +43,7 @@ typedef enum { false, true }	qboolean;
 typedef int qboolean;
 #endif
 
+
 typedef uint64_t longtime_t;
 
 #define MAX_STRING		256	// generic string
